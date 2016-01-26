@@ -137,8 +137,6 @@ enum BCBG_DESACT {
 // enables the contiguous check for convergence
 #define SMALLECHCONV
 
-#define NOTMUCHDELETEDCON
-
 #define REALISTICDELAYS
 
 #define GABAA025

@@ -4,8 +4,7 @@
 #include <vector>
 
 float param2hz(float value);
-float param2boutons(float value);
-float param2boutons2(float value);
+float param2boutons(float value, bool allow_empty);
 
 float _do_trial(std::vector<float>& means, std::vector<float>& ref, std::vector<float>& params, std::vector<int>& delays, std::vector<float>& activations, int nucleus, float proportional_change, float proportional_radius, float sim_time, MemoryBCBG2& mem);
 float calc_score_desactivation_other(std::vector <float>& means, std::vector <float>& params, std::vector <int>& delays, float desactivation_level, float sim_time, MemoryBCBG2& mem, bool verbose);

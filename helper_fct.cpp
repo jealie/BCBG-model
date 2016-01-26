@@ -18,24 +18,11 @@ float param2hz(float value) {
   return 200.0 + value * 300.0f;
 }
 
-float param2boutons(float value) {
-#ifdef NODELETEDCON
+float param2boutons(float value, bool allow_empty) {
+  if (allow_empty) {
+    return value * 6000.0f;
+  }
   return value * 5995.0f + 5.0f;
-#elif defined(NOTMUCHDELETEDCON)
-  return value * 5995.0f + 5.0f;
-#else
-  return value * 6000.0f;
-#endif
-}
-
-float param2boutons2(float value) {
-#ifdef NOTMUCHDELETEDCON
-  return value * 6000.0f;
-#elif defined(NODELETEDCON)
-  return value * 5995.0f + 5.0f;
-#else
-  return value * 6000.0f;
-#endif
 }
 
 float _do_trial(
