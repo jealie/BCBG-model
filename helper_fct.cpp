@@ -69,7 +69,7 @@ float _do_trial(
 
   float sim_step = 0.01;
 
-#if defined(MIXEDMEDIUMDT)
+#if defined(CHECK_CONV_TWICE)
   int converged;
   if (checkedtrial) {
     converged = _run_sim(sim_time,sim_step,dt,activations,cs,params,delays,means,0,ch_n,msn_separation,0,mem,1);
@@ -77,7 +77,7 @@ float _do_trial(
     converged = _run_sim(sim_time,sim_step,dt,activations,cs,params,delays,means,0,ch_n,msn_separation,0,mem,0);
     if (converged == 1) {
       std::vector <float> smalldt_means(means);
-      converged = _run_sim(sim_time,sim_step,dt,activations,cs,params,delays,means,0,ch_n,msn_separation,0,mem,1);
+      converged = _run_sim(sim_time,sim_step,dt/10.0,activations,cs,params,delays,means,0,ch_n,msn_separation,0,mem,1);
       if (converged != -1) {
         for (int i=0;i<NUCLEUS_NUMBER;i++) {
           if (abs(means[i*ch_n] - smalldt_means[i*ch_n]) > 1) {
@@ -87,32 +87,12 @@ float _do_trial(
       }
     }
   }
-#elif defined(MIXEDFULLDT)
-  delays.assign(ARGS_NUMBER,1); // 1ms everywhere
-  int converged = _run_sim(sim_time,0.1,1e-3,activations,cs,params,delays,means,0,ch_n,msn_separation,0,mem,0);
-  if (converged != -1) {
-    std::vector <float> smalldt_means(means);
-    delays.assign(ARGS_NUMBER,10); // 1ms everywhere
-    converged = _run_sim(sim_time,0.1,1e-4,activations,cs,params,delays,means,0,ch_n,msn_separation,0,mem,0);
-    if (converged != -1) {
-      float diff = 0.;
-      for (int i=0;i<NUCLEUS_NUMBER;i++) {
-        diff += abs(means[i*ch_n] - smalldt_means[i*ch_n]);
-      }
-      if (diff > 1) {
-        converged = 0;
-      }
-    }
-  }
 #else
   int converged = _run_sim(sim_time,sim_step,dt,activations,cs,params,delays,means,0,ch_n,msn_separation,0,mem,0);
 #endif
 
-#ifdef TRONQGALL
   float score = _has_changed_near_tronqgaussian(ref[nucleus*ch_n],means[nucleus*ch_n],proportional_change,proportional_radius);
-#else
-  float score = _has_changed_near_gaussian(ref[nucleus*ch_n],means[nucleus*ch_n],proportional_change,proportional_radius);
-#endif
+  // float score = _has_changed_near_gaussian(ref[nucleus*ch_n],means[nucleus*ch_n],proportional_change,proportional_radius);
 
   if ( converged == -1) {
     return -10000;

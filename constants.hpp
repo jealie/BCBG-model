@@ -1,21 +1,63 @@
 #ifndef CONSTANTS_HPP
 #define CONSTANTS_HPP
 
+
 //////////////////////////////////////////////
 // Main switches to change the model in use //
 //////////////////////////////////////////////
 
-//#define TSIROGIANNIS_2010 /* Re-generates the results of the BG model from Tsirogiannis et al, 2010 */
+// Re-generates the results of the BG model from Tsirogiannis et al, 2010
+//#define TSIROGIANNIS_2010 
 
-#define ITPTCTX /* Simulate two distinct sources of cortical neurons: IT and PT */
+// Simulates two distinct sources of cortical neurons: IT and PT
+#define ITPTCTX 
 
-//#define MSN_SEPARATION /* Simulate D1 and D2 MSN separatly */
+// Simulates D1 and D2 MSN separatly
+//#define MSN_SEPARATION 
 
-#define MULTICHANNELSMODEL /* for multi-channel nuclei */
+// Simulates multi-channel nuclei
+#define MULTICHANNELSMODEL
+
+
+
+
+//////////////////////////////////////////////
+// Minor options (convergence criteria etc) //
+//////////////////////////////////////////////
+
+// Change the integration timestep of the second order differential equation (default: 1e-4 seconds)
+//#define ISSMALLDT /* dt = 1e-3s => one simulation takes less than 1 second */
+//#define ISBIGDT /* dt = 1e-5s => one simulation takes about 20 seconds */
+//#define ISHUGEDT /* dt = 1e-6s => one simulation takes 30+ minutes */
+
+// Should we check twice for convergence, with the second check using a lower timestep?
+#define CHECK_CONV_TWICE
+
+// Should we bypass all convergence checks?
+//#define BYPASS_CONV_CHECK
+
+// When should we say that the convergence is attained?
+#define TESTCONV
+//#define LIGHTCONV
+//#define SOUNDCONV
+//#define OBJECTCONV
+
+// Enables the contiguous check for convergence (only for single-channel nuclei)
+#define SMALLECHCONV
+
+// When should we measure the activity of nuclei? Set to lower values for quicker and less precise simulations
+#define MINRECORDT 19
+#define MAXRECORDT 20
+
+// Disables the output of nuclei on std::cerr
+//#define NOOUTPUT
+
+
 
 
 /////////////////////////////////
 // Definition of array indices //
+// (change at your own risks!) //
 /////////////////////////////////
 
 enum BCBG_NUCLEI_INDICES {
@@ -47,7 +89,6 @@ enum BCBG_NUCLEI_INDICES {
 
   NUCLEUS_NUMBER
 };
-
 
 enum TSIROGIANNIS_PARAMETERS {
   TSIROGIANNIS_2010_CTXe_D1_D2 = 0,
@@ -113,44 +154,6 @@ enum BCBG_DESACT {
   CTXPT_MSN_AMPA, CTXPT_FSI_AMPA, CTXPT_MSN_NMDA, CTXPT_FSI_NMDA,
   DESACT_NUMBER 
 };
-
-//////////////////////////////////////////////
-// Minor options (convergence criteria etc) //
-//////////////////////////////////////////////
-
-// various options regarding the integration timestep
-//#define ISSMALLDT
-//#define ISBIGDT
-//#define ISHUGEDT
-#define MIXEDDT
-//#define MIXEDFULLDT
-#define MIXEDMEDIUMDT
-
-#define TRONQGALL
-
-// when should we say that the convergence is attained?
-#define TESTCONV
-//#define LIGHTCONV
-//#define SOUNDCONV
-//#define OBJECTCONV
-
-// enables the contiguous check for convergence
-#define SMALLECHCONV
-
-#define REALISTICDELAYS
-
-#define GABAA025
-
-#define RECTIF_NB_NEURONS
-
-//#define MINRECORDT 5
-//#define MAXRECORDT 5.09999
-//#define ONLYMEANOUTPUT
-//#define NOOUTPUT
-
-#define MINRECORDT 19
-//#define MINRECORDT 5
-#define MAXRECORDT 20
 
 
 #endif

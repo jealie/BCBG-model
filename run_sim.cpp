@@ -461,14 +461,7 @@ if (verbose==1)
         for (int i=0; i<NUCLEUS_NUMBER; i++) { // displays also for the cortex & CMPf
           float nmeans = 0;
           for (int ch_i=0; ch_i<ch_n; ch_i++) {
-          //for (int ch_i=0; ch_i<3; ch_i++) { // only the 3 first channels...
-#ifndef ONLYMEANOUTPUT
-#ifdef MINRECORDT
             std::cerr << " , " << bg->get_multi_channels_nucleus(i)->get_S(ch_i);
-#else
-            std::cerr << " , " << bg->get_multi_channels_nucleus(i)->get_S(ch_i);
-#endif
-#endif
             nmeans += bg->get_multi_channels_nucleus(i)->get_S(ch_i);
           }
 #ifdef MINRECORDT
@@ -553,8 +546,8 @@ if (verbose==1)
       std::cout << count << " iterations done." << std::endl;
     }
 
-#ifdef MIXEDDT
-    // This is intended as a bypass of validation, as it should be done by comparing the different dt runs
+#ifdef BYPASS_CONV_CHECK
+    // This is intended as a bypass of validation, and it should be used only for comparing the different dt runs
     if (return_value != -1 && _conv(last_out)) {
       return_value = 1;
     }

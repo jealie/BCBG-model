@@ -114,8 +114,7 @@ int main(int argc, char** argv)
 #elif defined(ISHUGEDT)
   float dt = 1e-6;
 #else
-#define CUSTOMDT 1.0f
-  float dt = (1.0f/CUSTOMDT)*1e-4;
+  float dt = 1e-4;
 #endif
 #ifdef MULTICHANNELSMODEL
     int ch_n = 8;
@@ -250,10 +249,9 @@ int main(int argc, char** argv)
     float neurons_nb_GPe = 251; // Hardman02: (GPe)/2
     float neurons_nb_GPi = 143; // Hardman02: (GPi + SN Non Dopaminergic)/2
 
-#ifdef RECTIF_NB_NEURONS
+    // rectifies the number of neurons to account for non-MSN population (Yelnik91)
     neurons_nb_MSN *= 0.87;
     neurons_nb_FSI *= 0.87;
-#endif
 
     params_synaptic.assign(ARGS_NUMBER,0.);
 
