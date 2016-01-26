@@ -360,11 +360,6 @@ int main(int argc, char** argv)
     params_cs[CTXPT_MSN] = 0.; // it is consistent with Parent et al. 2006
     params_cs[CTXPT_FSI] = 0.; // no influence here
 
-#ifdef MSN_SEPARATION
-    int msn_separation = 1;
-#else
-    int msn_separation = 0;
-#endif
 
     modulators_synaptic.assign(DESACT_NUMBER,1.0f);
 
@@ -374,12 +369,8 @@ int main(int argc, char** argv)
 
     MemoryBCBG2 mem = {-1};
 
-    // different convergence options are available as #define:
-#ifdef FASTCONV
-    float sim_time = 50;
-#elif defined(FASTERCONV)
-    float sim_time = 25;
-#elif defined(LIGHTCONV)
+    // different convergence options can be #defined:
+#ifdef LIGHTCONV
     float sim_time = 0.5;
 #elif defined(TESTCONV)
     float sim_time = 10;
@@ -389,6 +380,13 @@ int main(int argc, char** argv)
     float sim_time = 6;
 #else
     float sim_time = 100;
+#endif
+
+    // different circuitry of the BG can be #defined:
+#ifdef MSN_SEPARATION
+    int msn_separation = 1;
+#else
+    int msn_separation = 0;
 #endif
 
     // // //

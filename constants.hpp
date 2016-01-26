@@ -6,7 +6,7 @@
 //////////////////////////////////////////////
 
 //#define TSIROGIANNIS_2010 /* Re-generates the results of the BG model from Tsirogiannis et al, 2010 */
-//
+
 #define ITPTCTX /* Simulate two distinct sources of cortical neurons: IT and PT */
 
 //#define MSN_SEPARATION /* Simulate D1 and D2 MSN separatly */
@@ -22,7 +22,9 @@ enum BCBG_NUCLEI_INDICES {
   CTX_N = 0,
   CMPf_N,
   MSN_N,
+// Set the indices for the simulation of special nuclei
 #define MSND1_N MSN_N
+#define FIRST_NUCLEUS_SIM MSN_N
   FSI_N,
   STN_N,
   GPe_N,
@@ -32,6 +34,10 @@ enum BCBG_NUCLEI_INDICES {
   // adds a nucleus to represent the D2 MSN neurons in striatum */
   MSND2_N,
 #define MSND2_N MSND2
+#define LAST_NUCLEUS_SIM (MSND2_N+1)
+#else
+#define MSND2_N MSND1_N
+#define LAST_NUCLEUS_SIM (GPi_N+1)
 #endif
 
 #ifdef ITPTCTX
@@ -42,9 +48,6 @@ enum BCBG_NUCLEI_INDICES {
   NUCLEUS_NUMBER
 };
 
-#ifndef MSND2_N
-#define MSND2_N MSND1_N
-#endif
 
 enum TSIROGIANNIS_PARAMETERS {
   TSIROGIANNIS_2010_CTXe_D1_D2 = 0,
@@ -130,9 +133,8 @@ enum BCBG_DESACT {
 //#define LIGHTCONV
 //#define SOUNDCONV
 //#define OBJECTCONV
-//#define FASTESTCONV
-//#define FASTERCONV
-//#define FASTCONV
+
+// enables the contiguous check for convergence
 #define SMALLECHCONV
 
 #define NOTMUCHDELETEDCON

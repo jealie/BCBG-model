@@ -80,11 +80,7 @@ float _do_trial(
   std::vector<float> cs;
   cs.assign(ARGS_NUMBER, 0.);
 
-#ifdef LIGHTESTCONV
   float sim_step = 0.01;
-#else
-  float sim_step = 0.1;
-#endif
 
 #if defined(MIXEDMEDIUMDT)
   int converged;

@@ -351,9 +351,6 @@ int nb_conv = (int)(2./bunch_duration+0.5); // stabilisation over at least 2 sec
 #ifdef LIGHTCONV
 min_duration = 0.2;
 nb_conv = (int)(0.1/bunch_duration+0.5); // stabilisation over at least 0.1 second
-#elif defined(LIGHTESTCONV)
-min_duration = 0.1;
-nb_conv = (int)(0.05/bunch_duration+0.5); // stabilisation over at least 0.05 second
 #elif defined(SOUNDCONV)
 min_duration = 1.2;
 nb_conv = (int)(1.0/bunch_duration+0.5); // stabilisation over at least 1 second
@@ -501,11 +498,7 @@ if (verbose==1)
           bg->updateSingleChannelNucleus(bunch,integration_method);
         }
         count+=bunch;
-#ifdef ITPTCTX
-        for (int i=2; i<NUCLEUS_NUMBER-1; i++)
-#else
-        for (int i=2; i<NUCLEUS_NUMBER; i++)
-#endif
+        for (int i=FIRST_NUCLEUS_SIM; i<LAST_NUCLEUS_SIM; i++)
         { // do not store for the cortex & CMPf
           means[i] = bg->get_single_channel_nucleus(i)->get_S();
           if (isnan(means[i])) {
@@ -513,26 +506,6 @@ if (verbose==1)
             return_value = -1;
           }
         }
-#ifdef SMALLECHCONV
-        _add_to_fixed_l_list(nb_conv, last_out, means);
-        for (int ijiji=0; ijiji<contiguous_check_nb; ijiji++) {
-          bg->updateSingleChannelNucleus(1,integration_method);
-          count+=1;
-#ifdef ITPTCTX
-          for (int i=2; i<NUCLEUS_NUMBER-1; i++)
-#else
-            for (int i=2; i<NUCLEUS_NUMBER; i++)
-#endif
-            { // do not store for the cortex & CMPf
-              means[i] = bg->get_single_channel_nucleus(i)->get_S();
-              if (isnan(means[i])) {
-                not_nan = false;
-                return_value = -1;
-              }
-            }
-          _add_to_fixed_l_list(nb_conv, last_out, means);
-        }
-#endif
       } else if (ch_n == 0) {
         bg->updateNucleusCells(bunch);
         count+=bunch;
@@ -548,20 +521,32 @@ if (verbose==1)
           bg->updateMultiChannelsNucleus(bunch);
         }
         count+=bunch;
-#ifdef ITPTCTX
-        for (int i=2; i<NUCLEUS_NUMBER-1; i++)
-#else
-        for (int i=2; i<NUCLEUS_NUMBER; i++)
-#endif
+        for (int i=FIRST_NUCLEUS_SIM; i<LAST_NUCLEUS_SIM; i++)
         {
           for (int ch_i=0; ch_i<ch_n; ch_i++) {
             means[i*ch_n+ch_i] = bg->get_multi_channels_nucleus(i)->get_S(ch_i);
           }
         }
       }
-#ifndef SMALLECHCONV
       _add_to_fixed_l_list(nb_conv, last_out, means);
+#ifdef SMALLECHCONV
+      if (ch_n == 1) {
+        for (int contiguous_i=0; contiguous_i<contiguous_check_nb; contiguous_i++) {
+          bg->updateSingleChannelNucleus(1,integration_method);
+          count+=1;
+          for (int i=FIRST_NUCLEUS_SIM; i<LAST_NUCLEUS_SIM; i++)
+            { // do not store for the cortex & CMPf
+              means[i] = bg->get_single_channel_nucleus(i)->get_S();
+              if (isnan(means[i])) {
+                not_nan = false;
+                return_value = -1;
+              }
+            }
+          _add_to_fixed_l_list(nb_conv, last_out, means);
+        }
+      }
 #endif
+
     }
 
     if (verbose==1) {
