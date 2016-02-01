@@ -1,4 +1,4 @@
-/* vim: setlocal ft=cpp: */
+/* vim: ft=cpp: */
 
 #ifndef RUN_SIM_HPP
 #define RUN_SIM_HPP

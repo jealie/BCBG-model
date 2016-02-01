@@ -1,4 +1,4 @@
-/* vim: setlocal ft=cpp: */
+/* vim: ft=cpp: */
 
 #ifndef CONSTANTS_HPP
 #define CONSTANTS_HPP

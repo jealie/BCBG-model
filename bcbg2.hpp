@@ -1,4 +1,4 @@
-/* vim: setlocal ft=cpp: */
+/* vim: ft=cpp: */
 
 #ifndef BCBG2_HPP
 #define BCBG2_HPP
