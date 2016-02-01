@@ -1,4 +1,4 @@
-/* vim: ft=cpp: */
+/* vim: set ft=cpp: */
 
 #include "bcbg2.hpp"
 #include "constants.hpp"

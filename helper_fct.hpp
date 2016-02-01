@@ -1,4 +1,4 @@
-/* vim: ft=cpp: */
+/* vim: set ft=cpp: */
 
 #ifndef HELPER_FCT_HPP
 #define HELPER_FCT_HPP
