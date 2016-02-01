@@ -1,3 +1,5 @@
+/* vim: setlocal ft=cpp: */
+
 #ifndef CONSTANTS_HPP
 #define CONSTANTS_HPP
 

@@ -1,3 +1,5 @@
+/* vim: setlocal ft=cpp: */
+
 #include "bcbg2.hpp"
 
 float BCBG2::basic_test(int ch, float time)

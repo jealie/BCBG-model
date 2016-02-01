@@ -1,3 +1,5 @@
+/* vim: setlocal ft=cpp: */
+
 #ifndef HELPER_FCT_HPP
 #define HELPER_FCT_HPP
 

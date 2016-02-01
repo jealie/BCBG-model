@@ -1,3 +1,5 @@
+/* vim: setlocal ft=cpp: */
+
 #include "bcbg2.hpp"
 #include "constants.hpp"
 

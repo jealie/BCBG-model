@@ -1,3 +1,5 @@
+/* vim: setlocal ft=cpp: */
+
 #include "bcbg2.hpp"
 
 void BCBG2::MultiChannelsNucleus::initialize_multi_channels_nucleus(int ch_n, float Smax, float Sini, float vh, float k, int connectivity_type, float* dists, float* diams, int compartment_nb, const char* id)

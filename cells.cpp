@@ -1,3 +1,5 @@
+/* vim: setlocal ft=cpp: */
+
 #include "bcbg2.hpp"
 
 // the implementation of nucleus cell is not finished, and code for it is not released. The skeleton of functions is left here as to not break the compilation...
