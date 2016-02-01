@@ -2,7 +2,7 @@
 
 This code implements a mean-field model of the whole basal ganglia, whose parameterization was optimized to respect best a collection of numerous anatomical and electrophysiological data.
 
-This model was used for the paper "A biologically constrained model of the whole basal ganglia addressing the paradoxes of connections and selection." available at [J Comput Neurosci](http://link.springer.com/article/10.1007/s10827-013-0476-2).
+This model was used for the paper "A biologically constrained model of the whole basal ganglia addressing the paradoxes of connections and selection." available at [J Comput Neurosci](http://link.springer.com/article/10.1007/s10827-013-0476-2) (preprint in this repo: [here](preprint.pdf)).
 
 ### Compiling
 
